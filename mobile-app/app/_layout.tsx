@@ -1,25 +1,11 @@
-import { Tabs } from 'expo-router';
-// import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import {Ionicons} from "@expo/vector-icons"
+import { Stack } from 'expo-router';
 import "../global.css";
 
-export default function TabLayout() {
+export default function Layout() {
   return (
-    <Tabs>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="home" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name='settings'
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({color}) => <Ionicons size={28} name='settings' color={color} />
-        }}
-      />
-    </Tabs>
+    <Stack>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="(tabs)" />
+    </Stack>
   );
 }
