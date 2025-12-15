@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { View, Text } from 'react-native'
+import React from 'react'
 
-export class history extends Component {
-  render() {
-    return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    )
-  }
+export default function history() {
+  return (
+    <View>
+      <Text>history</Text>
+    </View>
+  )
 }
-
-export default history

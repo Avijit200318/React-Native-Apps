@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { View, Text } from 'react-native'
+import React from 'react'
 
-export class profile extends Component {
-  render() {
-    return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    )
-  }
+export default function profile() {
+  return (
+    <View>
+      <Text>profile</Text>
+    </View>
+  )
 }
-
-export default profile
