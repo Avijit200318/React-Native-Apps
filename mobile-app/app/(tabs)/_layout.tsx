@@ -7,14 +7,14 @@ export class TabLayout extends Component {
   render() {
     return (
       <Tabs screenOptions={{
-        headerShown: true,
+        headerShown: false,
         tabBarActiveTintColor: "#f49b33",
         tabBarInactiveTintColor: "#ecedee",
         tabBarStyle: {
           backgroundColor: "#2b2b2b",
           paddingBottom: 20,
           paddingTop: 5,
-          height: 110
+          height: 80
         },
         tabBarLabelStyle: {
           fontSize: 12,
