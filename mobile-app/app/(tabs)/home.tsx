@@ -8,6 +8,7 @@ import logo from "../../assets/images/dinetimelogo.png";
 import banner from "../../assets/images/homeBanner.png";
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase.ts';
+import Error from '@/components/Error';
 
 export type cardItemType = {
   id?: string,
@@ -21,6 +22,7 @@ export type cardItemType = {
 
 export default function home() {
   const [restaurants, setRestaurants] = useState<cardItemType[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // we don't have to use map for flat list its already included. We just need to add 
   const handleRenderItem = ({ item }: { item: cardItemType }) => (
@@ -28,6 +30,7 @@ export default function home() {
   )
 
   const fetchResturantDetails = useCallback(async () => {
+    setError(null);
     try {
       const resturantCollection = collection(db, "restaurants");
       const resturantDocs = await getDocs(resturantCollection);
@@ -39,7 +42,8 @@ export default function home() {
 
       setRestaurants(restaurantList as cardItemType[]);
     } catch (error) {
-      console.log("error", error)
+      setError("Couldn't load restaurants. Check your internet!");
+      console.log("error", error);
     }
   }, []);
 
@@ -47,9 +51,12 @@ export default function home() {
     fetchResturantDetails();
   }, []);
 
+  if (error) {
+    return <Error setError={setError} error={error} customFunction={fetchResturantDetails} />
+  }
+
   return (
     <SafeAreaView className='flex-1 bg-[#2b2b2b]'>
-      <StatusBar className="text-white bg-[#2b2b2b]" />
       <View className='w-full px-3 py-3'>
         <View className='flex flex-row items-center gap-4 px-4 rounded-md bg-[#5f5f5f]'>
           <Text className='text-white text-xl font-semibold'>Welcome</Text>
@@ -62,20 +69,20 @@ export default function home() {
             <Text className='text-white text-center text-3xl font-semibold'>Dine with your loved one</Text>
           </BlurView>
         </ImageBackground>
-        {restaurants.length > 0 && <Text className='text-white px-4 text-2xl font-semibold mt-2 mb-4'>Special Discount %</Text>}
-        {restaurants.length > 0 ?
+        {(restaurants.length > 0 && !error) && <Text className='text-white px-4 text-2xl font-semibold mt-2 mb-4'>Special Discount %</Text>}
+        {(restaurants.length > 0 && !error) ?
           <FlatList data={restaurants} renderItem={handleRenderItem} horizontal showsHorizontalScrollIndicator={false} scrollEnabled={true} className='mb-8' /> : <ActivityIndicator animating className='mt-8 mb-12' />
         }
-        {restaurants.length > 0 && <Text className='text-green-500 px-4 text-2xl font-semibold mt-2 mb-4'>Our restaurants</Text>}
-        {restaurants.length > 0 ?
+        {(restaurants.length > 0 && !error) && <Text className='text-green-500 px-4 text-2xl font-semibold mt-2 mb-4'>Our restaurants</Text>}
+        {(restaurants.length > 0 && !error) ?
           <FlatList data={restaurants} renderItem={handleRenderItem} horizontal showsHorizontalScrollIndicator={false} scrollEnabled={true} className='mb-8' /> : <ActivityIndicator animating className='mb-12' />
         }
-        {restaurants.length > 0 && <Text className='text-yellow-500 px-4 text-2xl font-semibold mt-2 mb-4'>Late Night Dinner</Text>}
-        {restaurants.length > 0 ?
+        {(restaurants.length > 0 && !error) && <Text className='text-yellow-500 px-4 text-2xl font-semibold mt-2 mb-4'>Late Night Dinner</Text>}
+        {(restaurants.length > 0 && !error) ?
           <FlatList data={restaurants} renderItem={handleRenderItem} horizontal showsHorizontalScrollIndicator={false} scrollEnabled={true} className='mb-8' /> : <ActivityIndicator animating className='mb-12' />
         }
-        {restaurants.length > 0 && <Text className='text-white px-4 text-2xl font-semibold mt-2 mb-4'>Up to 50% off</Text>}
-        {restaurants.length > 0 ?
+        {(restaurants.length > 0 && !error) && <Text className='text-white px-4 text-2xl font-semibold mt-2 mb-4'>Up to 50% off</Text>}
+        {(restaurants.length > 0 && !error) ?
           <FlatList data={restaurants} renderItem={handleRenderItem} horizontal showsHorizontalScrollIndicator={false} scrollEnabled={true} className='mb-4' /> : <ActivityIndicator animating className='' />
         }
       </ScrollView>

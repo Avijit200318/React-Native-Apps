@@ -10,7 +10,6 @@ export default function Index() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#2b2b2b]">
-      <StatusBar className="text-white bg-[#2b2b2b]" />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full m-2 flex justify-center items-center">
           <Image source={logo} className="w-[18rem] h-[18rem]" />
