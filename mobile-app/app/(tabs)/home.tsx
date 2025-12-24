@@ -10,22 +10,24 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase.ts';
 import Error from '@/components/Error';
 
-export type cardItemType = {
+export type resturantInfoType = {
   id?: string,
   name: string,
   seats: number,
   image: string,
   address: string,
   opening: string,
-  closing: string
+  closing: string,
+  images?: string[],
+  slot?: string[]
 }
 
 export default function home() {
-  const [restaurants, setRestaurants] = useState<cardItemType[]>([]);
+  const [restaurants, setRestaurants] = useState<resturantInfoType[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // we don't have to use map for flat list its already included. We just need to add 
-  const handleRenderItem = ({ item }: { item: cardItemType }) => (
+  const handleRenderItem = ({ item }: { item: resturantInfoType }) => (
     <Card item={item} />
   )
 
@@ -40,7 +42,7 @@ export default function home() {
         ...doc.data()
       }));
 
-      setRestaurants(restaurantList as cardItemType[]);
+      setRestaurants(restaurantList as resturantInfoType[]);
     } catch (error) {
       setError("Couldn't load restaurants. Check your internet!");
       console.log("error", error);

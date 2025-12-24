@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { cardItemType } from '@/app/(tabs)/home'
+import { resturantInfoType } from '@/app/(tabs)/home'
 import { Href, useRouter } from 'expo-router'
 
-export default function card({item}: {item: cardItemType}) {
+export default function card({item}: {item: resturantInfoType}) {
   const router = useRouter();
   return (
     <TouchableOpacity onPress={()=> router.push(`/restaurant/${item.id}` as Href)} className='bg-[#5f5f5f] max-h-68 max-w-xs flex justify-center rounded-lg p-4 mx-4 shadow'>
