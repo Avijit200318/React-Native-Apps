@@ -10,6 +10,7 @@ import Crausol from '@/components/Crausol';
 import { Ionicons } from '@expo/vector-icons';
 import DatePicker from '@/components/DatePicker';
 import GuestNumberBtn from '@/components/GuestNumberBtn';
+import SelectSlot from '@/components/SelectSlot';
 
 export default function Resturant() {
   // fetch the id. its just like useParams in react
@@ -19,7 +20,7 @@ export default function Resturant() {
   const [resturantInfo, setResturantInfo] = useState<resturantInfoType | null>(null);
   const [date, setDate] = useState<Date>(new Date());
   const [guests, setGuests] = useState<number>(2);
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const fetchResturantData = useCallback(async () => {
     if (!id) return;
@@ -130,6 +131,9 @@ export default function Resturant() {
             </View>
             <GuestNumberBtn guests={guests} setGuests={setGuests} />
           </View>
+        </View>
+        <View className='mt-4 py-2 px-4'>
+          <SelectSlot resturantInfo={resturantInfo} selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot}  />
         </View>
       </ScrollView>
     </SafeAreaView>
